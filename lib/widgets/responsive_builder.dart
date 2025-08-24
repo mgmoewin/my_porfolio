@@ -16,7 +16,9 @@ class ResponsiveBuilder extends StatelessWidget {
   }
 
   ScreenSizeCategory getScreenSize(double width) {
-    if (width < ScreenSize.mobile) {
+    if (width < ScreenSize.smallMobile) {
+      return ScreenSizeCategory.smallMobile;
+    } else if (width < ScreenSize.mobile) {
       return ScreenSizeCategory.mobile;
     } else if (width < ScreenSize.tablet) {
       return ScreenSizeCategory.tablet;
@@ -28,10 +30,11 @@ class ResponsiveBuilder extends StatelessWidget {
   }
 }
 
-enum ScreenSizeCategory { mobile, tablet, laptop, desktop }
+enum ScreenSizeCategory { smallMobile, mobile, tablet, laptop, desktop }
 
 class ScreenSize {
-  static const double mobile = 600;
+  static const double smallMobile = 350;
+  static const double mobile = 750;
   static const double tablet = 900;
   static const double laptop = 1200;
 }

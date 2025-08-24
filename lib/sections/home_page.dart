@@ -11,15 +11,16 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context, screenSize) {
+        final isMobile =
+            screenSize == ScreenSizeCategory.mobile ||
+            screenSize == ScreenSizeCategory.smallMobile;
         return Scaffold(
           extendBodyBehindAppBar: true,
-          appBar: const PreferredSize(
-            preferredSize: Size.fromHeight(100.0),
-            child: Header(),
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(100.0),
+            child: Header(isMobile: isMobile),
           ),
-          drawer: screenSize == ScreenSizeCategory.mobile
-              ? const MobileDrawer()
-              : null,
+          drawer: isMobile ? const MobileDrawer() : null,
           body: const SingleChildScrollView(
             child: Column(children: [SizedBox(height: 120.0), HeroSection()]),
           ),
@@ -30,43 +31,81 @@ class Homepage extends StatelessWidget {
 }
 
 class Header extends StatelessWidget {
-  const Header({super.key});
+  final bool isMobile;
+  const Header({super.key, required this.isMobile});
 
   @override
   Widget build(BuildContext context) {
     final isDark = themeModeNotifier.value == ThemeMode.dark;
     final theme = Theme.of(context);
 
-    return ResponsiveBuilder(
-      builder: (context, screenSize) {
-        if (screenSize == ScreenSizeCategory.mobile) {
-          // Mobile Header
-          return Container(
-            color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+    if (isMobile) {
+      // Mobile Header
+      return Container(
+        color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+              onTap: () => Scaffold.of(context).openDrawer(),
+              child: Text(
+                'MW',
+                style: theme.textTheme.headlineMedium!.copyWith(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 20,
+                  foreground: Paint()
+                    ..shader = const LinearGradient(
+                      colors: <Color>[Colors.purpleAccent, Colors.blueAccent],
+                    ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0)),
+                ),
+              ),
+            ),
+            IconButton(
+              icon: Icon(
+                isDark ? Icons.light_mode : Icons.dark_mode,
+                color: theme.colorScheme.onSurface,
+              ),
+              onPressed: () {
+                themeModeNotifier.value = isDark
+                    ? ThemeMode.light
+                    : ThemeMode.dark;
+              },
+            ),
+          ],
+        ),
+      );
+    }
+    // Desktop/Tablet Header
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
+      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // This is the glass card with the nav items
+          GlassCard(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                InkWell(
-                  onTap: () => Scaffold.of(context).openDrawer(),
-                  child: Text(
-                    'MW',
-                    style: theme.textTheme.headlineMedium!.copyWith(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 20,
-                      foreground: Paint()
-                        ..shader =
-                            const LinearGradient(
-                              colors: <Color>[
-                                Colors.purpleAccent,
-                                Colors.blueAccent,
-                              ],
-                            ).createShader(
-                              const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
-                            ),
-                    ),
+                Text(
+                  'MW',
+                  style: theme.textTheme.headlineMedium!.copyWith(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 20,
+                    foreground: Paint()
+                      ..shader =
+                          const LinearGradient(
+                            colors: <Color>[
+                              Colors.purpleAccent,
+                              Colors.blueAccent,
+                            ],
+                          ).createShader(
+                            const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
+                          ),
                   ),
                 ),
+                const SizedBox(width: 30),
+                ..._buildNavItems(context),
                 IconButton(
                   icon: Icon(
                     isDark ? Icons.light_mode : Icons.dark_mode,
@@ -80,56 +119,9 @@ class Header extends StatelessWidget {
                 ),
               ],
             ),
-          );
-        }
-        // Desktop/Tablet Header
-        return Container(
-          color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // This is the glass card with the nav items
-              GlassCard(
-                child: Row(
-                  children: [
-                    Text(
-                      'MW',
-                      style: theme.textTheme.headlineMedium!.copyWith(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 20,
-                        foreground: Paint()
-                          ..shader =
-                              const LinearGradient(
-                                colors: <Color>[
-                                  Colors.purpleAccent,
-                                  Colors.blueAccent,
-                                ],
-                              ).createShader(
-                                const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
-                              ),
-                      ),
-                    ),
-                    const SizedBox(width: 30),
-                    ..._buildNavItems(context),
-                    IconButton(
-                      icon: Icon(
-                        isDark ? Icons.light_mode : Icons.dark_mode,
-                        color: theme.colorScheme.onSurface,
-                      ),
-                      onPressed: () {
-                        themeModeNotifier.value = isDark
-                            ? ThemeMode.light
-                            : ThemeMode.dark;
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ],
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 

@@ -46,7 +46,10 @@ class _HeroSectionState extends State<HeroSection>
         CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center;
         TextAlign textAlign = TextAlign.center;
 
-        if (screenSize == ScreenSizeCategory.mobile) {
+        if (screenSize == ScreenSizeCategory.smallMobile) {
+          titleFontSize = 32;
+          descriptionWidth = MediaQuery.of(context).size.width * 0.9;
+        } else if (screenSize == ScreenSizeCategory.mobile) {
           titleFontSize = 42;
           descriptionWidth = MediaQuery.of(context).size.width * 0.8;
         } else if (screenSize == ScreenSizeCategory.tablet) {
@@ -88,11 +91,15 @@ class _HeroSectionState extends State<HeroSection>
                     mainAxisAlignment: columnAlignment,
                     crossAxisAlignment: crossAxisAlignment,
                     children: [
-                      Text(
-                        'Moe Win',
-                        style: TextStyle(
-                          fontSize: titleFontSize,
-                          fontWeight: FontWeight.bold,
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          ' Moe Win ( Mazhai ) ',
+                          softWrap: false,
+                          style: TextStyle(
+                            fontSize: titleFontSize,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 20),
