@@ -3,6 +3,9 @@ import 'package:porfolio/main.dart';
 import 'package:porfolio/sections/hero_section.dart';
 import 'package:porfolio/widgets/glass.card.dart';
 import 'package:porfolio/widgets/responsive_builder.dart';
+import 'package:porfolio/sections/about_section.dart';
+import 'package:porfolio/sections/tech_stack_section.dart';
+import 'package:porfolio/sections/project_section.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
@@ -22,7 +25,15 @@ class Homepage extends StatelessWidget {
           ),
           drawer: isMobile ? const MobileDrawer() : null,
           body: const SingleChildScrollView(
-            child: Column(children: [SizedBox(height: 120.0), HeroSection()]),
+            child: Column(
+              children: [
+                SizedBox(height: 120.0),
+                HeroSection(),
+                AboutSection(), // Add the AboutSection here
+                TechnologyStackSection(),
+                ProjectSection(),
+              ],
+            ),
           ),
         );
       },
@@ -145,6 +156,7 @@ class Header extends StatelessWidget {
   }
 }
 
+// Drawer design for Mobile view
 class MobileDrawer extends StatelessWidget {
   const MobileDrawer({super.key});
 

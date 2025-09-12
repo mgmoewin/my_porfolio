@@ -1,0 +1,14 @@
+{
+    "title": "About Me",
+    "description": "Crafting digital experiences with passion, precision, and purpose",
+    "imageUrl": "assets/images/about.png",
+    "bio": {
+        "intro": "A passionate ",
+        "highlight1": "Flutter Developer",
+        "connector": " and ",
+        "highlight2": "UI/UX enthusiast",
+        "outro": " with a love for crafting beautiful and intuitive user experiences."
+    },
+    "paragraph1": "I specialize in building scalable web and mobile applications using modern development technologies. I thrive on turning complex problems into elegant solutions that users love.",
+    "paragraph2": "Beyond work, I love exploring emerging technologies, contributing to open-source projects, and mentoring aspiring developers. I believe in continuous learning and staying at the forefront of technological innovation."
+}
