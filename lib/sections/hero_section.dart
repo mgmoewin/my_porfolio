@@ -6,6 +6,7 @@ import 'package:porfolio/widgets/typing_text.dart';
 import 'package:porfolio/widgets/scroll_for_more.dart';
 import 'package:porfolio/widgets/particle_field.dart';
 import 'package:porfolio/widgets/responsive_builder.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HeroSection extends StatefulWidget {
   const HeroSection({super.key});
@@ -31,6 +32,15 @@ class _HeroSectionState extends State<HeroSection>
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -127,21 +137,25 @@ class _HeroSectionState extends State<HeroSection>
                         runSpacing: 10.0,
                         alignment: WrapAlignment.center,
 
-                        children: const [
+                        children: [
                           SocialButton(
-                            icon: Icon(Icons.code),
+                            icon: const Icon(Icons.code),
                             text: 'GitHub',
-                            onPressed: null,
+                            onPressed: () =>
+                                _launchURL('https://github.com/mgmoewin'),
                           ),
                           SocialButton(
-                            icon: Icon(Icons.group),
+                            icon: const Icon(Icons.group),
                             text: 'LinkedIn',
-                            onPressed: null,
+                            onPressed: () => _launchURL(
+                              'https://www.linkedin.com/in/moe-win-3910411ab/',
+                            ),
                           ),
                           SocialButton(
-                            icon: Icon(Icons.email),
+                            icon: const Icon(Icons.email),
                             text: 'Email',
-                            onPressed: null,
+                            onPressed: () =>
+                                _launchURL('mailto:moewin4070@gmail.com'),
                           ),
                         ],
                       ),
