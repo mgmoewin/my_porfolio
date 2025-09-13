@@ -62,9 +62,7 @@ class _AboutSectionState extends State<AboutSection>
   }
 
   Future<AboutMe> _loadAboutMeData() async {
-    final String jsonString = await rootBundle.loadString(
-      'assets/data/about_me.json',
-    );
+    final String jsonString = await rootBundle.loadString('data/about_me.json');
     final jsonResponse = json.decode(jsonString);
     try {
       return AboutMe.fromJson(jsonResponse);
