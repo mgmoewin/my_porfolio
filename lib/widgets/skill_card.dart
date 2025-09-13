@@ -39,7 +39,7 @@ class _SkillCardState extends State<SkillCard> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         width: 150,
-        margin: const EdgeInsets.symmetric(horizontal: 30),
+        margin: const EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
           color: cardColor,
           borderRadius: BorderRadius.circular(150),

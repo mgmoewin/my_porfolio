@@ -35,7 +35,7 @@ class _ContactSectionState extends State<ContactSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 40.0),
+      padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
       child: Column(
         children: [
           const SectionHeader(text: 'Get In Touch', icon: Icons.email_outlined),
