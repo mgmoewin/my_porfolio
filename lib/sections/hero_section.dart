@@ -4,13 +4,20 @@ import 'package:porfolio/widgets/social_button.dart';
 import 'package:porfolio/widgets/available_for_project.dart';
 import 'package:porfolio/widgets/typing_text.dart';
 import 'package:porfolio/widgets/scroll_for_more.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:porfolio/widgets/particle_field.dart';
 import 'package:porfolio/widgets/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HeroSection extends StatefulWidget {
-  const HeroSection({super.key});
+  final GlobalKey contactKey;
+  final void Function(GlobalKey) onContactMeTap;
 
+  const HeroSection({
+    super.key,
+    required this.contactKey,
+    required this.onContactMeTap,
+  });
   @override
   _HeroSectionState createState() => _HeroSectionState();
 }
@@ -36,11 +43,22 @@ class _HeroSectionState extends State<HeroSection>
 
   void _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      throw 'Could not launch $url';
+    try {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      // If launching fails, show a snackbar.
+      // This can happen if there's no email client installed.
+      _showErrorSnackBar(
+        'Could not open email client. Please check if an email app is installed.',
+      );
     }
+  }
+
+  void _showErrorSnackBar(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: Colors.red),
+    );
   }
 
   @override
@@ -161,9 +179,11 @@ class _HeroSectionState extends State<HeroSection>
                             const SizedBox(height: 10),
                             SocialButton(
                               icon: const Icon(Icons.email),
-                              text: 'Email',
-                              onPressed: () =>
-                                  _launchURL('mailto:moewin4070@gmail.com'),
+                              text:
+                                  'Email', // This is the button you wanted to change
+                              onPressed: () => _launchURL(
+                                'mailto:moewin4070@gmail.com?subject=Portfolio Contact',
+                              ),
                             ),
                           ],
                         )
@@ -186,14 +206,18 @@ class _HeroSectionState extends State<HeroSection>
                             ),
                             SocialButton(
                               icon: const Icon(Icons.email),
-                              text: 'Email',
-                              onPressed: () =>
-                                  _launchURL('mailto:moewin4070@gmail.com'),
+                              text:
+                                  'Email', // This is the button you wanted to change
+                              onPressed: () => _launchURL(
+                                'mailto:moewin4070@gmail.com?subject=Portfolio Contact',
+                              ),
                             ),
                           ],
                         ),
                       const SizedBox(height: 40),
-                      const AvailableForProjectsWidget(),
+                      AvailableForProjectsWidget(
+                        onTap: () => widget.onContactMeTap(widget.contactKey),
+                      ),
                       const SizedBox(height: 20),
                       const ScrollForMore(),
                     ],

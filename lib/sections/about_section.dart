@@ -275,7 +275,7 @@ class _AboutSectionState extends State<AboutSection>
                   RichText(
                     text: TextSpan(
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 18,
                         color: Theme.of(context).colorScheme.onSurface,
                         height: 1.5,
                       ),
@@ -284,6 +284,7 @@ class _AboutSectionState extends State<AboutSection>
                         TextSpan(
                           text: data.bio.highlight1,
                           style: TextStyle(
+                            fontSize: 18,
                             color: Colors.blue.shade600,
                             fontWeight: FontWeight.w600,
                           ),

@@ -7,7 +7,7 @@ class SectionDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
+    return SelectableText(
       text,
       style: Theme.of(context).textTheme.bodyLarge,
       textAlign: TextAlign.center,

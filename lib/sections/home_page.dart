@@ -74,7 +74,11 @@ class _HomepageState extends State<Homepage> {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 100),
-                HeroSection(key: heroKey),
+                HeroSection(
+                  key: heroKey,
+                  contactKey: contactKey,
+                  onContactMeTap: _scrollToSection,
+                ),
                 AboutSection(key: aboutKey),
                 TechnologyStackSection(key: stackKey),
                 ProjectSection(key: projectsKey),

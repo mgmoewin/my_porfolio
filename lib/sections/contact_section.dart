@@ -180,10 +180,10 @@ class _ContactSectionState extends State<ContactSection> {
                       const SizedBox(height: 32),
 
                       // "Or reach out directly" text
-                      const Center(
-                        child: Text(
+                      Center(
+                        child: SelectableText(
                           'Or reach out directly:',
-                          style: TextStyle(color: Color(0xFF6B6B6B)),
+                          style: const TextStyle(color: Color(0xFF6B6B6B)),
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -229,11 +229,15 @@ class _ContactSectionState extends State<ContactSection> {
         path: myEmail,
         query: 'subject=${Uri.encodeComponent('Contact from Portfolio')}',
       );
-      if (await canLaunchUrl(emailLaunchUri)) {
-        await launchUrl(emailLaunchUri);
-      } else {
+
+      try {
+        await launchUrl(emailLaunchUri, mode: LaunchMode.externalApplication);
+      } catch (e) {
         if (mounted) {
-          _showSnackBar('Could not launch email client.', isError: true);
+          _showSnackBar(
+            'Could not open email client. Please check if an email app is installed.',
+            isError: true,
+          );
         }
       }
       return;

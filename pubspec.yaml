@@ -24,6 +24,7 @@ flutter:
   assets:
     - assets/images/
     - assets/data/
+    - assets/project_img/
 
   fonts:
     - family: Space Grotesk
@@ -38,3 +39,7 @@ flutter:
           weight: 600
         - asset: assets/fonts/SpaceGrotesk-Bold.ttf
           weight: 700
+    - family: Noto Sans
+      fonts:
+        - asset: assets/fonts/NotoSans-Regular.ttf
+          weight: 400

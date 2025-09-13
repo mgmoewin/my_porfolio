@@ -1,0 +1,25 @@
+[
+  {
+    "title": "E-commerce App",
+    "description": "A full-featured e-commerce application built with Flutter and Firebase, offering a seamless shopping experience.",
+    "imagePath": "assets/project_img/image.png",
+    "technologies": ["Flutter", "Firebase"],
+    "features": [
+      "Real-time product updates with Firebase.",
+      "Secure payments via Stripe integration.",
+      "User authentication and profile management."
+    ]
+  },
+
+  {
+    "title": "Social Media App",
+    "description": "A social networking platform to connect with friends, share updates, and discover new content.",
+    "imagePath": "assets/project_img/image.png",
+    "technologies": ["Flutter"],
+    "features": [
+      "Real-time chat functionality.",
+      "Infinite scroll for feeds.",
+      "RESTful API integration with a Node.js backend."
+    ]
+  }
+]

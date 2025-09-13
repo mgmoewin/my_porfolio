@@ -1,46 +1,46 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:porfolio/widgets/project_book.dart';
+import 'package:porfolio/widgets/responsive_builder.dart';
 import 'package:porfolio/widgets/section_description.dart';
 import 'package:porfolio/widgets/section_header.dart';
 import 'package:porfolio/widgets/section_title_gradient.dart';
 
-class ProjectSection extends StatelessWidget {
+class ProjectSection extends StatefulWidget {
   const ProjectSection({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: Replace with your actual project data
-    final projects = [
-      {
-        'imagePath': 'assets/images/dart.png', // Replace with your image
-        'title': 'Portfolio Website',
-        'description':
-            'A personal portfolio to showcase my skills and projects, built with Flutter Web.',
-        'technologies': ['Flutter', 'Dart', 'Responsive UI'],
-      },
-      {
-        'imagePath': 'assets/images/flutter.png', // Replace with your image
-        'title': 'E-commerce App',
-        'description':
-            'A mobile application for an online store with Firebase integration.',
-        'technologies': ['Flutter', 'Firebase', 'BLoC'],
-      },
-      {
-        'imagePath': 'assets/images/project3.png', // Replace with your image
-        'title': 'Task Manager',
-        'description': 'A simple and elegant task management application.',
-        'technologies': ['Flutter', 'Provider', 'SQLite'],
-      },
-      // Add more projects here
-    ];
+  State<ProjectSection> createState() => _ProjectSectionState();
+}
 
+class _ProjectSectionState extends State<ProjectSection> {
+  Future<List<Map<String, dynamic>>>? _projectsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _projectsFuture = _loadProjectsData();
+  }
+
+  Future<List<Map<String, dynamic>>> _loadProjectsData() async {
+    final String jsonString = await rootBundle.loadString(
+      'data/feature_list.json',
+    );
+    final List<dynamic> jsonList = json.decode(jsonString);
+    return jsonList.cast<Map<String, dynamic>>();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 40.0),
       child: Column(
         children: [
           const SectionHeader(text: 'My Work', icon: Icons.work_outline),
           const SizedBox(height: 30),
-          const SectionTitleGradient(title: 'Featured Projects'),
+          const SectionTitleGradient(title: 'Featured Projects'), //
           const SizedBox(height: 10),
           Container(
             width: 60,
@@ -57,7 +57,24 @@ class ProjectSection extends StatelessWidget {
             text: 'Here are a few projects I\'ve worked on recently.',
           ),
           const SizedBox(height: 50),
-          ProjectBook(projects: projects),
+          ResponsiveBuilder(
+            builder: (context, screenSize) {
+              return FutureBuilder<List<Map<String, dynamic>>>(
+                future: _projectsFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                    return ProjectBook(projects: snapshot.data!);
+                  } else {
+                    return const Center(child: Text('No projects found.'));
+                  }
+                },
+              );
+            },
+          ),
         ],
       ),
     );
