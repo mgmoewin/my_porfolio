@@ -131,33 +131,67 @@ class _HeroSectionState extends State<HeroSection>
                         ),
                       ),
                       const SizedBox(height: 40),
-                      Wrap(
-                        spacing: 10.0,
-                        runSpacing: 10.0,
-                        alignment: WrapAlignment.center,
-
-                        children: [
-                          SocialButton(
-                            icon: const Icon(Icons.code),
-                            text: 'GitHub',
-                            onPressed: () =>
-                                _launchURL('https://github.com/mgmoewin'),
-                          ),
-                          SocialButton(
-                            icon: const Icon(Icons.group),
-                            text: 'LinkedIn',
-                            onPressed: () => _launchURL(
-                              'https://www.linkedin.com/in/moe-win-3910411ab/',
+                      if (screenSize == ScreenSizeCategory.smallMobile ||
+                          screenSize == ScreenSizeCategory.mobile)
+                        Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: SocialButton(
+                                    icon: const Icon(Icons.code),
+                                    text: 'GitHub',
+                                    onPressed: () => _launchURL(
+                                      'https://github.com/mgmoewin',
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: SocialButton(
+                                    icon: const Icon(Icons.group),
+                                    text: 'LinkedIn',
+                                    onPressed: () => _launchURL(
+                                      'https://www.linkedin.com/in/moe-win-3910411ab/',
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          SocialButton(
-                            icon: const Icon(Icons.email),
-                            text: 'Email',
-                            onPressed: () =>
-                                _launchURL('mailto:moewin4070@gmail.com'),
-                          ),
-                        ],
-                      ),
+                            const SizedBox(height: 10),
+                            SocialButton(
+                              icon: const Icon(Icons.email),
+                              text: 'Email',
+                              onPressed: () =>
+                                  _launchURL('mailto:moewin4070@gmail.com'),
+                            ),
+                          ],
+                        )
+                      else
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SocialButton(
+                              icon: const Icon(Icons.code),
+                              text: 'GitHub',
+                              onPressed: () =>
+                                  _launchURL('https://github.com/mgmoewin'),
+                            ),
+                            SocialButton(
+                              icon: const Icon(Icons.group),
+                              text: 'LinkedIn',
+                              onPressed: () => _launchURL(
+                                'https://www.linkedin.com/in/moe-win-3910411ab/',
+                              ),
+                            ),
+                            SocialButton(
+                              icon: const Icon(Icons.email),
+                              text: 'Email',
+                              onPressed: () =>
+                                  _launchURL('mailto:moewin4070@gmail.com'),
+                            ),
+                          ],
+                        ),
                       const SizedBox(height: 40),
                       const AvailableForProjectsWidget(),
                       const SizedBox(height: 20),

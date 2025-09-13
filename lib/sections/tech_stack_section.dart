@@ -153,6 +153,8 @@ class _TechnologyStackSectionState extends State<TechnologyStackSection>
     {'label': 'CSS', 'imagePath': 'assets/images/css.png'},
     {'label': 'JavaScript', 'imagePath': 'assets/images/js.png'},
     {'label': 'Python', 'imagePath': 'assets/images/python.png'},
+    {'label': 'Supabase', 'imagePath': 'assets/images/supabase.png'},
+    {'label': 'BootStrap', 'imagePath': 'assets/images/bootstrap.png'},
   ];
 
   @override

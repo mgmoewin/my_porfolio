@@ -120,35 +120,39 @@ class _TypingTextState extends State<TypingText> with TickerProviderStateMixin {
               _textAnimation.value,
             );
 
-            return Row(
-              mainAxisSize:
-                  MainAxisSize.min, // This makes the Row wrap its content
-              children: [
-                Text(
-                  displayedText,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  overflow: TextOverflow.clip,
-                ),
-                // Show cursor only when the animation is active
-                FadeTransition(
-                  opacity: Tween<double>(
-                    begin: 0.0,
-                    end: 1.0,
-                  ).animate(_cursorController),
-                  child: const Text(
-                    ' |',
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisSize:
+                    MainAxisSize.min, // This makes the Row wrap its content
+                children: [
+                  Text(
+                    displayedText,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 24,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
+                    overflow: TextOverflow.clip,
+                    softWrap: false,
                   ),
-                ),
-              ],
+                  // Show cursor only when the animation is active
+                  FadeTransition(
+                    opacity: Tween<double>(
+                      begin: 0.0,
+                      end: 1.0,
+                    ).animate(_cursorController),
+                    child: const Text(
+                      '|', // Removed space to prevent extra width
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         ),

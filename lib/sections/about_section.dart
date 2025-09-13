@@ -189,7 +189,7 @@ class _AboutSectionState extends State<AboutSection>
                 child: ClipPath(
                   clipper: _BlobClipper(),
                   child: Container(
-                    width: isSmall ? 220 : 350,
+                    width: isSmall ? 220 : 500,
                     height: isSmall ? 220 : 350,
                     decoration: BoxDecoration(
                       image: DecorationImage(
