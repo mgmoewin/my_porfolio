@@ -206,7 +206,8 @@ class Header extends StatelessWidget {
           child: Text(
             item,
             style: theme.textTheme.bodyMedium!.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
+              color: theme.colorScheme.onSurface,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),

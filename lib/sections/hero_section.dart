@@ -117,9 +117,8 @@ class _HeroSectionState extends State<HeroSection>
                       const TypingText(
                         texts: [
                           'Junior Flutter Developer',
-                          '    Flutter Enthusiast',
+                          '   Flutter Enthusiast',
                           '  Mobile App Developer',
-                          '    UI/UX Designer',
                         ],
                       ),
                       const SizedBox(height: 20),

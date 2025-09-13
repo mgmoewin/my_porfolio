@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppThemes {
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
+    fontFamily: 'Space Grotesk',
     scaffoldBackgroundColor: const Color(0xFF121212),
     colorScheme: const ColorScheme.dark(
       primary: Color(0xFFBB86FC),
@@ -27,6 +28,7 @@ class AppThemes {
 
   static final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
+    fontFamily: 'Space Grotesk',
     // Note: The gradient background is handled in the HeroSection, not here.
     scaffoldBackgroundColor: const Color(0xFFF9F9F9),
     colorScheme: const ColorScheme.light(

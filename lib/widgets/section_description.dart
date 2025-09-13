@@ -9,7 +9,7 @@ class SectionDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(fontSize: 16, color: Colors.black87),
+      style: Theme.of(context).textTheme.bodyLarge,
       textAlign: TextAlign.center,
     );
   }

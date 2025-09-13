@@ -15,7 +15,7 @@ class SectionTitleGradient extends StatelessWidget {
             screenSize == ScreenSizeCategory.mobile) {
           fontSize = 30;
         } else {
-          fontSize = 60;
+          fontSize = 50;
         }
 
         return ShaderMask(

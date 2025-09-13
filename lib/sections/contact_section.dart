@@ -56,7 +56,7 @@ class _ContactSectionState extends State<ContactSection> {
           const SizedBox(height: 30),
           const SectionDescription(
             text:
-                'I\'m always open to discussing new projects, creative ideas, or opportunities to be part of your visions.',
+                'I\'m always open to discussing new projects, creative ideas, \n or opportunities to be part of your visions.',
           ),
           const SizedBox(height: 50),
           ResponsiveBuilder(
@@ -341,13 +341,24 @@ ${_messageController.text}
           },
           decoration: InputDecoration(
             hintText: hint,
-            border: OutlineInputBorder(
+            enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12.0),
-              borderSide: BorderSide.none,
+              borderSide: BorderSide(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey.shade800
+                    : const Color(0xFFF0F0F0),
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12.0),
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.primary,
+                width: 2.0,
+              ),
             ),
             filled: true,
             fillColor: Theme.of(context).brightness == Brightness.dark
-                ? Colors.white.withOpacity(0.01)
+                ? Colors.grey.shade900.withOpacity(0.5)
                 : const Color(0xFFF0F0F0),
           ),
         ),
