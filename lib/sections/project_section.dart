@@ -26,7 +26,7 @@ class _ProjectSectionState extends State<ProjectSection> {
 
   Future<List<Map<String, dynamic>>> _loadProjectsData() async {
     final String jsonString = await rootBundle.loadString(
-      'assets/data/feature_list.json',
+      'data/feature_list.json',
     );
     final List<dynamic> jsonList = json.decode(jsonString);
     return jsonList.cast<Map<String, dynamic>>();

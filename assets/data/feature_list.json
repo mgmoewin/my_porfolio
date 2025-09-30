@@ -3,7 +3,7 @@
     "title": "Portfolio Website",
     "description": "A responsive personal portfolio website built with Flutter to showcase my projects, skills, and professional experience.",
     "imagePath": "assets/project_img/image.png",
-    "technologies": ["Flutter", "Dart", "Firebase"],
+    "technologies": ["Flutter", "Dart"],
     "features": [
       "Fully responsive design for mobile, tablet, and desktop.",
       "Showcases a collection of my featured projects.",
@@ -20,8 +20,8 @@
   {
     "title": "Gold Shop App",
     "description": "A social networking platform to connect with friends, share updates, and discover new content.",
-    "imagePath": "assets/project_img/image.png",
-    "technologies": ["Flutter", "Laravel", "Superbase", "Dart"],
+    "imagePath": "assets/project_img/noble.png",
+    "technologies": ["Flutter", "Dart", "Supabase","Python", "FastAPI", "AWS", "PostgreSQL", "ChromaDB"],
     "features": [
       "User authentication and profile management.",
       "Product listing and purchasing functionality.",
@@ -34,22 +34,7 @@
       "Infinite scroll for product listings.",
       "RESTful API integration with a Laravel backend."
     ],
-    "liveUrl": "https://social-media-app-example.com",
-    "repoUrl": "https://github.com/mgmoewin/social_media_app",
     "projectType": "University Project Show",
     "myRole": "Mobile App (UI/UX) and Frontend Developer"
-  },
-  {
-    "title": "Private Client App",
-    "description": "A confidential project developed for a client under an NDA. The source code and live demo are not publicly available.",
-    "imagePath": "assets/project_img/image.png",
-    "technologies": ["Flutter", "Firebase"],
-    "features": [
-      "Secure authentication and data storage.",
-      "Custom business logic implementation.",
-      "Developed according to strict client specifications."
-    ],
-    "projectType": "Client Work (NDA)",
-    "myRole": "Lead Flutter Developer"
   }
 ]

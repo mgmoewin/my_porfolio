@@ -8,6 +8,7 @@ import 'package:porfolio/sections/tech_stack_section.dart';
 import 'package:porfolio/sections/project_section.dart';
 import 'package:porfolio/sections/contact_section.dart';
 import 'package:porfolio/sections/footer_section.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -70,25 +71,63 @@ class _HomepageState extends State<Homepage> {
           drawer: isMobile
               ? MobileDrawer(onNavItemTap: _scrollToSection, navKeys: navKeys)
               : null,
-          body: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 100),
-                HeroSection(
-                  key: heroKey,
-                  contactKey: contactKey,
-                  onContactMeTap: _scrollToSection,
+          body: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(height: 100),
+                    HeroSection(
+                      key: heroKey,
+                      contactKey: contactKey,
+                      onContactMeTap: _scrollToSection,
+                    ),
+                    AboutSection(key: aboutKey),
+                    TechnologyStackSection(key: stackKey),
+                    ProjectSection(key: projectsKey),
+                    ContactSection(key: contactKey),
+                    FooterSection(key: footerKey),
+                  ],
                 ),
-                AboutSection(key: aboutKey),
-                TechnologyStackSection(key: stackKey),
-                ProjectSection(key: projectsKey),
-                ContactSection(key: contactKey),
-                FooterSection(key: footerKey),
-              ],
-            ),
+              ),
+              if (!isMobile) const _VerticalPhoneNumber(),
+            ],
           ),
         );
       },
+    );
+  }
+}
+
+class _VerticalPhoneNumber extends StatelessWidget {
+  const _VerticalPhoneNumber();
+
+  void _launchPhone() async {
+    final Uri phoneUri = Uri(scheme: 'tel', path: '+1234567890');
+    if (await canLaunchUrl(phoneUri)) {
+      await launchUrl(phoneUri);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      right: 0, // Adjust this value to control the distance from the edge
+      top: 0,
+      bottom: 40,
+      child: Center(
+        child: RotatedBox(
+          quarterTurns: 1,
+          child: TextButton.icon(
+            onPressed: _launchPhone,
+            icon: const Icon(Icons.phone_in_talk, size: 16),
+            label: const Text(
+              '+959 766 187 984',
+              style: TextStyle(letterSpacing: 1.5, fontWeight: FontWeight.w600),
+            ),
+          ), // Closes TextButton.icon
+        ), // Closes RotatedBox
+      ), // Closes Center
     );
   }
 }

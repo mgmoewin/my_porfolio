@@ -71,6 +71,10 @@ class _ProjectBookState extends State<ProjectBook>
     final isDark = theme.brightness == Brightness.dark;
     final currentProject = widget.projects[_currentPage];
 
+    if (widget.projects.isEmpty) {
+      return const Center(child: Text('No projects to display.'));
+    }
+
     return ResponsiveBuilder(
       builder: (context, screenSize) {
         double bookWidth;
@@ -79,7 +83,7 @@ class _ProjectBookState extends State<ProjectBook>
         if (screenSize == ScreenSizeCategory.smallMobile ||
             screenSize == ScreenSizeCategory.mobile) {
           bookWidth = MediaQuery.of(context).size.width * 0.9;
-          bookHeight = bookWidth * 1.25; // Maintain aspect ratio
+          bookHeight = bookWidth * 1.4; // Taller aspect ratio for mobile
         } else if (screenSize == ScreenSizeCategory.tablet) {
           bookWidth = 800;
           bookHeight = 500;
@@ -90,6 +94,11 @@ class _ProjectBookState extends State<ProjectBook>
 
         double pageWidth = bookWidth / 2;
 
+        // For small screens, show a single-page view instead of a two-page book
+        if (screenSize == ScreenSizeCategory.smallMobile ||
+            screenSize == ScreenSizeCategory.mobile) {
+          return _buildMobileView(context, bookWidth, bookHeight);
+        }
         return Transform(
           alignment: FractionalOffset.center,
           transform: Matrix4.identity()..setEntry(3, 2, 0.001), // Perspective
@@ -128,7 +137,7 @@ class _ProjectBookState extends State<ProjectBook>
                     ),
                   ),
                 ),
-                // The static open book background (Right Page)
+                // The static open book backgrou nd (Right Page)
                 Align(
                   alignment: Alignment.centerRight,
                   child: Container(
@@ -224,11 +233,159 @@ class _ProjectBookState extends State<ProjectBook>
                     );
                   },
                 ),
+
+                // Navigation Buttons for Desktop
+                if (_currentPage > 0)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16.0),
+                      child: _NavButton(
+                        onPressed: _turnPageBack,
+                        icon: Icons.arrow_back_ios_new,
+                      ),
+                    ),
+                  ),
+                if (_currentPage < widget.projects.length - 1)
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 16.0),
+                      child: _NavButton(
+                        onPressed: _turnPage,
+                        icon: Icons.arrow_forward_ios,
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
         );
       },
+    );
+  }
+
+  Widget _buildMobileView(
+    BuildContext context,
+    double bookWidth,
+    double bookHeight,
+  ) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final currentProject = widget.projects[_currentPage];
+
+    return SizedBox(
+      width: bookWidth,
+      height: bookHeight,
+      child: Stack(
+        children: [
+          // Static background page
+          Container(
+            decoration: BoxDecoration(
+              color: isDark ? const Color(0xFF0D1117) : Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+          ),
+
+          // The content that flips
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 600),
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              final rotate = Tween(begin: math.pi / 2, end: 0.0).animate(
+                CurvedAnimation(parent: animation, curve: Curves.easeOut),
+              );
+              return AnimatedBuilder(
+                animation: rotate,
+                child: child,
+                builder: (BuildContext context, Widget? child) {
+                  return Transform(
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.001)
+                      ..rotateY(rotate.value),
+                    alignment: Alignment.center,
+                    child: child,
+                  );
+                },
+              );
+            },
+            child: GestureDetector(
+              key: ValueKey<int>(
+                _currentPage,
+              ), // Important for AnimatedSwitcher
+              onHorizontalDragEnd: (details) {
+                if (details.primaryVelocity! < -100) {
+                  _turnPage();
+                } else if (details.primaryVelocity! > 100) {
+                  _turnPageBack();
+                }
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: isDark ? const Color(0xFF0D1117) : Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: _ProjectVisualsPage(project: currentProject),
+                    ),
+                    const Divider(height: 1),
+                    Expanded(
+                      flex: 6,
+                      child: _ProjectDetailsPage(
+                        project: currentProject,
+                        currentIndex: _currentPage,
+                        totalProjects: widget.projects.length,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          // Page indicators
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Text('${_currentPage + 1} / ${widget.projects.length}'),
+            ),
+          ),
+
+          // Navigation Buttons for Mobile
+          if (_currentPage > 0)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 4.0),
+                child: _NavButton(
+                  onPressed: _turnPageBack,
+                  icon: Icons.arrow_back_ios_new,
+                ),
+              ),
+            ),
+          if (_currentPage < widget.projects.length - 1)
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 4.0),
+                child: _NavButton(
+                  onPressed: _turnPage,
+                  icon: Icons.arrow_forward_ios,
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
@@ -256,7 +413,7 @@ class _ProjectDetailsPage extends StatelessWidget {
 
         double titleSize = isSmall
             ? 18
-            : (isTablet ? 20 : theme.textTheme.headlineSmall!.fontSize!);
+            : (isTablet ? 20 : (theme.textTheme.headlineSmall?.fontSize ?? 24));
         double bodySize = isSmall
             ? 12
             : (isTablet ? 14 : theme.textTheme.bodyLarge!.fontSize!);
@@ -264,7 +421,7 @@ class _ProjectDetailsPage extends StatelessWidget {
 
         return SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: EdgeInsets.all(isSmall ? 16.0 : 24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -276,7 +433,7 @@ class _ProjectDetailsPage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 48),
+                SizedBox(height: isSmall ? 24 : 48),
                 Text(
                   project['title'],
                   style: TextStyle(
@@ -377,9 +534,8 @@ class _ProjectDetailsPage extends StatelessWidget {
                 //   style: TextStyle(fontSize: bodySize, color: theme.colorScheme.onSurface.withOpacity(0.7), height: 1.5,),
                 // ),
                 const SizedBox(height: 50),
-                Wrap(
-                  spacing: buttonPadding,
-                  runSpacing: 12,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     if ((project['liveUrl'] as String?)?.isNotEmpty ?? false)
                       GradientButton(
@@ -391,7 +547,13 @@ class _ProjectDetailsPage extends StatelessWidget {
                         },
                         icon: Icons.arrow_upward_rounded,
                         text: 'Live Demo',
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 11,
+                        ),
+                        fontSize: 13,
                       ),
+                    const SizedBox(width: 12),
                     if ((project['repoUrl'] as String?)?.isNotEmpty ?? false)
                       _GlassRepoButton(
                         onPressed: () async {
@@ -419,6 +581,32 @@ class _ProjectDetailsPage extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class _NavButton extends StatelessWidget {
+  final VoidCallback? onPressed;
+  final IconData icon;
+
+  const _NavButton({this.onPressed, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.black.withOpacity(0.3),
+      shape: const CircleBorder(),
+      elevation: 2,
+      child: IconButton(
+        onPressed: onPressed,
+        icon: Icon(icon, color: Colors.white, size: 20),
+        splashRadius: 24,
+        tooltip: onPressed == null
+            ? null
+            : (icon == Icons.arrow_back_ios_new
+                  ? 'Previous Project'
+                  : 'Next Project'),
+      ),
     );
   }
 }
@@ -640,7 +828,7 @@ class _ProjectVisualsPageState extends State<_ProjectVisualsPage> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: Image.asset(
-                    widget.project['imagePath'],
+                    widget.project['imagePath'] as String,
                     height: 200 + imageHeight,
                     width: double.infinity,
                     fit: BoxFit.cover,
