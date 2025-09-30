@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:elegant_notification/elegant_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:porfolio/config/emailjs_config.dart';
 import 'package:porfolio/widgets/responsive_builder.dart';
 import 'package:porfolio/widgets/section_description.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:porfolio/widgets/section_header.dart';
+import 'package:porfolio/widgets/gradient_button.dart';
 import 'package:porfolio/widgets/section_title_gradient.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
@@ -198,15 +200,24 @@ class _ContactSectionState extends State<ContactSection> {
                             icon: const Icon(Icons.mail),
                             label: 'Send Email',
                           ),
-                          const SizedBox(width: 16),
-                          _HoverableOutlinedButton(
-                            onPressed: () {
-                              // TODO: Implement CV download logic.
-                              // You might want to launch a URL to your CV file.
-                            },
-                            icon: const Icon(Icons.download),
-                            label: 'Download CV',
-                          ),
+                          // const SizedBox(width: 16),
+                          // GradientButton(
+                          //   onPressed: () {
+                          //     // This points to the CV file you added in the web/cv/ directory.
+                          //     const String cvUrl = 'cv/Moe_Win_CV.pdf';
+                          //     launchUrl(
+                          //       Uri.parse(cvUrl),
+                          //       mode: LaunchMode.externalApplication,
+                          //     );
+                          //   },
+                          //   icon: Icons.download,
+                          //   text: 'Download CV',
+                          //   padding: const EdgeInsets.symmetric(
+                          //     horizontal: 20,
+                          //     vertical: 11,
+                          //   ),
+                          //   fontSize: 13,
+                          // ),
                         ],
                       ),
                     ],
@@ -234,7 +245,7 @@ class _ContactSectionState extends State<ContactSection> {
         await launchUrl(emailLaunchUri, mode: LaunchMode.externalApplication);
       } catch (e) {
         if (mounted) {
-          _showSnackBar(
+          _showNotification(
             'Could not open email client. Please check if an email app is installed.',
             isError: true,
           );
@@ -281,11 +292,11 @@ class _ContactSectionState extends State<ContactSection> {
         _nameController.clear();
         _emailController.clear();
         _messageController.clear();
-        _showSnackBar('Message sent successfully!');
+        _showNotification('Message sent successfully!');
       } else {
         // Log the error for debugging and show a generic message.
         debugPrint('EmailJS Error: ${response.statusCode} - ${response.body}');
-        _showSnackBar(
+        _showNotification(
           'Failed to send message. Server returned an error.',
           isError: true,
         );
@@ -293,7 +304,7 @@ class _ContactSectionState extends State<ContactSection> {
     } catch (e) {
       // This handles network errors or other exceptions
       debugPrint('Network or other exception: $e');
-      _showSnackBar(
+      _showNotification(
         'Failed to send message. Please check your network connection.',
         isError: true,
       );
@@ -306,17 +317,22 @@ class _ContactSectionState extends State<ContactSection> {
     }
   }
 
-  void _showSnackBar(String message, {bool isError = false}) {
+  void _showNotification(String message, {bool isError = false}) {
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: isError ? Colors.red : Colors.green,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(20),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
+
+    final notification = isError
+        ? ElegantNotification.error(
+            title: const Text('Error'),
+            description: Text(message),
+            animationDuration: const Duration(milliseconds: 600),
+          )
+        : ElegantNotification.success(
+            title: const Text('Success'),
+            description: Text(message),
+            animationDuration: const Duration(milliseconds: 600),
+          );
+
+    notification.show(context);
   }
 
   Widget _buildTextField(

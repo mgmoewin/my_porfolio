@@ -2,7 +2,7 @@
   {
     "title": "Portfolio Website",
     "description": "A responsive personal portfolio website built with Flutter to showcase my projects, skills, and professional experience.",
-    "imagePath": "assets/project_img/image.png",
+    "imagePath": "assets/project_img/porfolio.png",
     "technologies": ["Flutter", "Dart"],
     "features": [
       "Fully responsive design for mobile, tablet, and desktop.",

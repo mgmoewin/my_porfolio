@@ -767,7 +767,7 @@ class _ProjectVisualsPageState extends State<_ProjectVisualsPage> {
   Future<Map<String, String>> _loadTechIcons() async {
     try {
       final String jsonString = await rootBundle.loadString(
-        'data/tech_icons.json',
+        'assets/data/tech_icons.json',
       );
       final Map<String, dynamic> jsonMap = json.decode(jsonString);
       return jsonMap.map((key, value) => MapEntry(key, value as String));
