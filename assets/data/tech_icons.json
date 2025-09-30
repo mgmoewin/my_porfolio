@@ -1,4 +1,10 @@
 {
   "Flutter": "assets/images/flutter.png",
-  "Firebase": "assets/images/firebase.png"
+  "Firebase": "assets/images/firebase.png",
+  "Dart": "assets/images/dart.png",
+  "Superbase": "assets/images/supabase.png",
+  "Laravel": "assets/images/laravel.png"
+
+
+  
 }

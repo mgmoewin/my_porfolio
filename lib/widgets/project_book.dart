@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/services.dart';
 import 'package:porfolio/widgets/tag_chip.dart';
 import 'package:porfolio/widgets/gradient_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'responsive_builder.dart';
 
@@ -284,7 +285,74 @@ class _ProjectDetailsPage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 26),
+                const SizedBox(height: 16),
+                if ((project['myRole'] as String?)?.isNotEmpty ?? false)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.person_outline,
+                          size: 16,
+                          color: theme.colorScheme.onSurface.withOpacity(0.7),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          'My Role : ',
+                          style: TextStyle(
+                            fontSize: bodySize,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            project['myRole'] as String,
+                            style: TextStyle(
+                              fontSize: bodySize,
+                              color: theme.colorScheme.onSurface.withOpacity(
+                                0.8,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                if ((project['projectType'] as String?)?.isNotEmpty ?? false)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.category_outlined,
+                          size: 16,
+                          color: theme.colorScheme.onSurface.withOpacity(0.7),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Project Type : ',
+                          style: TextStyle(
+                            fontSize: bodySize,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            project['projectType'] as String,
+                            style: TextStyle(
+                              fontSize: bodySize,
+                              color: theme.colorScheme.onSurface.withOpacity(
+                                0.8,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                const SizedBox(height: 24),
                 Text(
                   'Key Features',
                   style: TextStyle(
@@ -308,36 +376,42 @@ class _ProjectDetailsPage extends StatelessWidget {
                 //   project['description'] as String,
                 //   style: TextStyle(fontSize: bodySize, color: theme.colorScheme.onSurface.withOpacity(0.7), height: 1.5,),
                 // ),
-                const SizedBox(height: 150),
+                const SizedBox(height: 50),
                 Wrap(
                   spacing: buttonPadding,
                   runSpacing: 12,
                   children: [
-                    GradientButton(
-                      icon: Icons.arrow_upward_rounded,
-
-                      text: 'Live Demo',
-                      onPressed: () {
-                        // TODO: Add Live Demo URL logic
-                      },
-                    ),
-                    _GlassRepoButton(
-                      onPressed: () {
-                        // TODO: Add Source Code URL logic
-                      },
-                      icon: Icon(
-                        Icons.code,
-
-                        color: theme.colorScheme.onSurface,
+                    if ((project['liveUrl'] as String?)?.isNotEmpty ?? false)
+                      GradientButton(
+                        onPressed: () async {
+                          final url = project['liveUrl'] as String;
+                          if (await canLaunchUrl(Uri.parse(url))) {
+                            await launchUrl(Uri.parse(url));
+                          }
+                        },
+                        icon: Icons.arrow_upward_rounded,
+                        text: 'Live Demo',
                       ),
-                      label: Text(
-                        'View Repository',
-                        style: TextStyle(
-                          fontSize: 13,
+                    if ((project['repoUrl'] as String?)?.isNotEmpty ?? false)
+                      _GlassRepoButton(
+                        onPressed: () async {
+                          final url = project['repoUrl'] as String;
+                          if (await canLaunchUrl(Uri.parse(url))) {
+                            await launchUrl(Uri.parse(url));
+                          }
+                        },
+                        icon: Icon(
+                          Icons.code,
                           color: theme.colorScheme.onSurface,
                         ),
+                        label: Text(
+                          'View Repository',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: theme.colorScheme.onSurface,
+                          ),
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ],

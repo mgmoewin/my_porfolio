@@ -179,8 +179,7 @@ class _HeroSectionState extends State<HeroSection>
                             const SizedBox(height: 10),
                             SocialButton(
                               icon: const Icon(Icons.email),
-                              text:
-                                  'Email', // This is the button you wanted to change
+                              text: 'Email',
                               onPressed: () => _launchURL(
                                 'mailto:moewin4070@gmail.com?subject=Portfolio Contact',
                               ),

@@ -257,7 +257,10 @@ class _ContactSectionState extends State<ContactSection> {
       final response = await http.post(
         url,
         headers: {
-          if (kIsWeb) 'origin': Uri.base.origin,
+          // EmailJS requires the 'origin' header to be present for CORS checks,
+          // even on mobile. For web, Uri.base.origin provides the correct value.
+          // For mobile, we can use a placeholder or the intended web domain.
+          'origin': kIsWeb ? Uri.base.origin : 'http://localhost',
           'Content-Type': 'application/json',
         },
         body: json.encode({
@@ -265,15 +268,11 @@ class _ContactSectionState extends State<ContactSection> {
           'template_id': EmailJSConfig.templateId,
           'user_id': EmailJSConfig.userId,
           'template_params': {
-            'from_name': _nameController.text, // For the email subject
-            'full_message':
-                '''
-Name: ${_nameController.text}
-Email: ${_emailController.text}
-
-Message:
-${_messageController.text}
-''',
+            'user_name': _nameController.text,
+            'user_email': _emailController.text,
+            'message': _messageController.text,
+            // Add the current time to match the '{{time}}' field in your template
+            'time': DateTime.now().toUtc().toIso8601String(),
           },
         }),
       );
@@ -284,12 +283,20 @@ ${_messageController.text}
         _messageController.clear();
         _showSnackBar('Message sent successfully!');
       } else {
-        // This handles non-200 responses from EmailJS
-        _showSnackBar('Failed to send message.', isError: true);
+        // Log the error for debugging and show a generic message.
+        debugPrint('EmailJS Error: ${response.statusCode} - ${response.body}');
+        _showSnackBar(
+          'Failed to send message. Server returned an error.',
+          isError: true,
+        );
       }
     } catch (e) {
       // This handles network errors or other exceptions
-      _showSnackBar('Failed to send message.', isError: true);
+      debugPrint('Network or other exception: $e');
+      _showSnackBar(
+        'Failed to send message. Please check your network connection.',
+        isError: true,
+      );
     } finally {
       if (mounted) {
         setState(() {
