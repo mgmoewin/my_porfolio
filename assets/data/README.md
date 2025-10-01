@@ -28,7 +28,7 @@ You can view the live version of the portfolio here:
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="/porfolio/assets/project_img/porfolio.png" alt="Portfolio Screenshot" width="80%">
+  <img src="/home/moewin/flutter/porfolio/porfolio/assets/project_img/porfolio.png" alt="Portfolio Screenshot" width="80%">
 </p>
 
 _A GIF showcasing the responsive design and animations would be great here!_
