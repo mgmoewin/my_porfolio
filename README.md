@@ -31,7 +31,9 @@ You can view the live version of the portfolio here:
   <img src="assets/project_img/porfolio.png" alt="Portfolio Screenshot" width="80%">
 </p>
 
-_A GIF showcasing the responsive design and animations would be great here!_
+<p align="center">
+  <img src="assets/project_img/portfolio-demo.gif" alt="Portfolio Demo GIF" width="80%">
+</p>
 
 ---
 
