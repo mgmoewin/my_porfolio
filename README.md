@@ -28,7 +28,7 @@ You can view the live version of the portfolio here:
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="/porfolio/assets/project_img/porfolio.png" alt="Portfolio Screenshot" width="80%">
+  <img src="assets/project_img/porfolio.png" alt="Portfolio Screenshot" width="80%">
 </p>
 
 _A GIF showcasing the responsive design and animations would be great here!_
@@ -50,11 +50,11 @@ _A GIF showcasing the responsive design and animations would be great here!_
 
 This project was built using the following technologies:
 
-| Technology   |                                    Icon                                    |
-| ------------ | :------------------------------------------------------------------------: |
-| **Flutter**  |  <img src="/porfolio/assets/images/flutter.png" alt="Flutter" width="32">  |
-| **Dart**     |     <img src="/porfolio/assets/images/dart.png" alt="Dart" width="32">     |
-| **Firebase** | <img src="/porfolio/assets/images/firebase.png" alt="Firebase" width="32"> |
+| Technology   |                               Icon                               |
+| ------------ | :--------------------------------------------------------------: |
+| **Flutter**  |  <img src="assets/images/flutter.png" alt="Flutter" width="32">  |
+| **Dart**     |     <img src="assets/images/dart.png" alt="Dart" width="32">     |
+| **Firebase** | <img src="assets/images/firebase.png" alt="Firebase" width="32"> |
 
 ---
 
