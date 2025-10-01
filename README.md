@@ -1,8 +1,8 @@
 # My Flutter Portfolio
 
 <p align="center">
-  <a href="https://github.com/mgmoewin/my_porfolio/actions">
-    <img src="https://github.com/mgmoewin/my_porfolio/actions/workflows/main.yml/badge.svg" alt="CI Status">
+  <a href="https://github.com/mgmoewin/my_porfolio/actions/workflows/deploy.yml">
+    <img src="https://github.com/mgmoewin/my_porfolio/actions/workflows/deploy.yml/badge.svg" alt="CI Status">
   </a>
   <img src="https://img.shields.io/badge/Flutter-3.x-blue?logo=flutter" alt="Flutter Version">
   <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
@@ -22,8 +22,8 @@
 
 ## 🚀 Live Demo
 
-You can view the live version of the portfolio here:
-**[https://flutter-web-hosting-d7fed.web.app/](https://flutter-web-hosting-d7fed.web.app/)**
+You can view the live version of the portfolio on GitHub Pages:
+**[https://mgmoewin.github.io/my_porfolio/](https://mgmoewin.github.io/my_porfolio/)**
 
 ## 📸 Screenshots
 
@@ -44,7 +44,7 @@ You can view the live version of the portfolio here:
 - **Modern UI/UX:** Built using modern Flutter widgets and design practices.
 - **Contact Form:** Includes a contact section for easy communication.
 - **Clean Codebase:** Organized for easy maintenance and scalability.
-- **Firebase Hosting:** Deployed and hosted using Firebase.
+- **GitHub Pages Hosting:** Deployed and hosted using GitHub Pages.
 
 ---
 
