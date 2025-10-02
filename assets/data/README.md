@@ -1,8 +1,8 @@
 # My Flutter Portfolio
 
 <p align="center">
-  <a href="https://github.com/mgmoewin/my_porfolio/actions">
-    <img src="https://github.com/mgmoewin/my_porfolio/actions/workflows/main.yml/badge.svg" alt="CI Status">
+  <a href="https://github.com/mgmoewin/my_porfolio/actions/workflows/deploy.yml">
+    <img src="https://github.com/mgmoewin/my_porfolio/actions/workflows/deploy.yml/badge.svg" alt="CI Status">
   </a>
   <img src="https://img.shields.io/badge/Flutter-3.x-blue?logo=flutter" alt="Flutter Version">
   <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">

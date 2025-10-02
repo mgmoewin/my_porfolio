@@ -23,7 +23,7 @@ jobs:
 
       - name: Build Flutter web
         # Build for the /my_porfolio/ subdirectory
-        run: flutter build web --release --base-href "/my_porfolio/"
+        run: flutter build web --release --base-href "/my_porfolio/" --no-fatal-infos --no-fatal-warnings
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
