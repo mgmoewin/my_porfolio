@@ -22,12 +22,11 @@ jobs:
         run: flutter pub get
 
       - name: Build Flutter web
-        # Build for the root of the domain
-        run: flutter build web --release
+        # Build for the /my_porfolio/ subdirectory
+        run: flutter build web --release --base-href "/my_porfolio/"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
-          cname: www.your-domain.com # Add your custom domain here
