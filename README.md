@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  A responsive personal portfolio website built with Flutter to showcase my projects, skills, and professional experience.
+  A responsive personal portfolio website built with Flutter to showcase my projects, and skills.
 </p>
 
 ---
