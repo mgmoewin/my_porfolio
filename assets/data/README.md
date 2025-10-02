@@ -22,13 +22,13 @@
 
 ## 🚀 Live Demo
 
-You can view the live version of the portfolio here:
-**[https://flutter-web-hosting-d7fed.web.app/](https://flutter-web-hosting-d7fed.web.app/)**
+သင့်ရဲ့ portfolio ကို ဒီနေရာမှာ တိုက်ရိုက်ကြည့်ရှုနိုင်ပါတယ်:
+**[https://mgmoewin.github.io/my_porfolio/](https://mgmoewin.github.io/my_porfolio/)**
 
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="/home/moewin/flutter/porfolio/porfolio/assets/project_img/porfolio.png" alt="Portfolio Screenshot" width="80%">
+  <img src="https://raw.githubusercontent.com/mgmoewin/my_porfolio/main/assets/project_img/porfolio.png" alt="Portfolio Screenshot" width="80%">
 </p>
 
 _A GIF showcasing the responsive design and animations would be great here!_
@@ -42,19 +42,18 @@ _A GIF showcasing the responsive design and animations would be great here!_
 - **Modern UI/UX:** Built using modern Flutter widgets and design practices.
 - **Contact Form:** Includes a contact section for easy communication.
 - **Clean Codebase:** Organized for easy maintenance and scalability.
-- **Firebase Hosting:** Deployed and hosted using Firebase.
+- **GitHub Pages:** Deployed and hosted using GitHub Pages.
 
 ---
 
 ## 🛠️ Tech Stack
 
 This project was built using the following technologies:
-
-| Technology   |                                    Icon                                    |
-| ------------ | :------------------------------------------------------------------------: |
-| **Flutter**  |  <img src="/porfolio/assets/images/flutter.png" alt="Flutter" width="32">  |
-| **Dart**     |     <img src="/porfolio/assets/images/dart.png" alt="Dart" width="32">     |
-| **Firebase** | <img src="/porfolio/assets/images/firebase.png" alt="Firebase" width="32"> |
+| Technology | Icon |
+| --------------- | :--: |
+| **Flutter** | <img src="https://raw.githubusercontent.com/mgmoewin/my_porfolio/main/assets/images/flutter.png" alt="Flutter" width="32"> |
+| **Dart** | <img src="https://raw.githubusercontent.com/mgmoewin/my_porfolio/main/assets/images/dart.png" alt="Dart" width="32"> |
+| **GitHub Pages**| <img src="https://raw.githubusercontent.com/mgmoewin/my_porfolio/main/assets/images/github.png" alt="GitHub" width="32"> |
 
 ---
 
